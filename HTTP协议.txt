@@ -1,0 +1,40 @@
+协议：指计算机通信网络中两台计算机之间进行通信所必须共同遵守的规定或规则
+
+超文本传输协议（HTTP协议）：允许将超文本标记语言(HTML)文档从Web服务器传送到客户端的浏览器
+
+HTTP是一个客户端和服务器端请求和应答的标准，客户端是终端用户，服务器端是网站
+
+
+实现原理：
+	
+	地址栏输入URL ---> 浏览器给Web服务器发送一个Request ---> Web服务器接收到Request，处理，生成相应Response ---> 再回发给浏览器 ---> 浏览器解析Response中的HTML
+	
+	浏览器 与 Web服务器 间可能存在 代理服务器Proxy
+	
+	Proxy功能：
+		
+		1. 提高访问速度， 大多数的代理服务器都有缓存功能；
+		
+		2. 突破限制， 也就是翻墙了；
+		
+		3. 隐藏身份
+		
+
+		
+URL	统一资源定位符：用于描述一个网络上的资源
+
+	基本格式：schema://host[:port#]/path/.../[;url-params][?query-string][#anchor]
+	
+				scheme：指定低层使用的协议(例如：http, https, ftp)；
+				
+				host：HTTP服务器的IP地址或者域名；
+				
+				port#：HTTP服务器的默认端口是80，这种情况下端口号可以省略。如果使用了别的端口，必须指明，例如 http://www.cnblogs.com:8080/
+				
+				path：访问资源的路径；
+				
+				query-string：发送给http服务器的数据；
+				
+				anchor-：锚
+				
+HTTP协议是无状态性：http://10.1.9.97:8081/WChart/

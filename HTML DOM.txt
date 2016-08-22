@@ -1,0 +1,156 @@
+DOM：文档对象模型
+DOM 是 W3C（万维网联盟）的标准
+
+在 HTML DOM 中，所有事物都是节点。DOM 是被视为节点树的 HTML
+
+	整个文档是一个文档节点；
+	每个 HTML 元素是元素节点；
+	HTML 元素内的文本是文本节点；
+	每个 HTML 属性是属性节点；
+	注释是注释节点
+	
+节点树中的节点彼此拥有层级关系
+
+	父（parent）、子（child）和同胞（sibling）等术语用于描述这些关系
+	
+		在节点树中，顶端节点被称为根（root）；
+		每个节点都有父节点、除了根（它没有父节点）；
+		一个节点可拥有任意数量的子节点；
+		同胞是拥有相同父节点的节点
+		
+		
+HTML DOM 方法
+	可通过 JavaScript （以及其他编程语言）对 HTML DOM 进行访问
+		
+		所有 HTML 元素被定义为对象，而编程接口则是对象方法和对象属性；
+		方法是您能够执行的动作（比如添加或修改元素）；
+		属性是您能够获取或设置的值（比如节点的名称或内容）
+		
+	获取元素：
+		getElementById()
+		getElementsByTagName() 返回包含带有指定标签名称的所有元素的节点列表（集合/节点数组）
+		getElementsByClassName() 返回包含带有指定类名的所有元素的节点列表
+		
+	元素的属性值
+		innerHTML - 节点（元素）的文本值；
+		parentNode - 节点（元素）的父节点；
+		childNodes - 节点（元素）的子节点；
+		attributes - 属性返回指定节点的属性集合，即 NamedNodeMap
+		
+		nodeName
+			nodeName 是只读的；
+			元素节点的 nodeName 与标签名相同；
+			属性节点的 nodeName 与属性名相同；
+			文本节点的 nodeName 始终是 #text
+			
+		nodeValue
+			元素节点的 nodeValue 是 undefined 或 null；
+			文本节点的 nodeValue 是文本本身；
+			属性节点的 nodeValue 是属性值
+			
+		nodeType
+			nodeType 属性返回节点的类型。nodeType 是只读的
+			
+					元素	1
+					属性	2
+					文本	3
+					注释	8
+					文档	9
+					
+					
+HTML DOM修改
+
+	改变HTML内容：document.getElementById("p1").innerHTML="New text!";
+	
+	改变 HTML 样式：document.getElementById("p2").style.color="blue";
+	
+	…………
+	
+	
+DOM 对象常用方法：
+
+	1、getElementById() 查询给定ID属性值的元素，返回该元素的元素节点,也称为元素对象。
+			
+		返回值是唯一的；
+		该方法只能用于document对象，类似与java的static关键字
+	
+	2、getElementsByName() 查找给定name属性的所有元素，这个方法将返回一个节点集合，也可以称为对象集合
+	
+		查找给定name属性的所有元素，这个方法将返回一个节点集合；
+		这个集合可以作为数组来对待，length属性的值表示集合的个数；
+	
+	3、getElementsByTagName() 查询给定标签名的所有元素
+
+		两种形式：document.getElementsByTagName(tagName);
+				  element.getElementsByTagName(tagName); 
+				  
+			从这两种方法可以看出持有这个方法的对象并不一定是整个文档对象(document).也可以是某一个元素节点
+
+	4、hasChildNodes() 该方法用来判断一个元素是否有子节点,返回值为true或者false
+	
+		文本节点和属性节点不可能再包含子节点，所以对于这两类节点使用 ChildNodes()方法 返回值永远为false
+		
+	5、nodeName
+	
+		元素节点：标签名
+		属性节点：属性名
+		文本节点：该文本
+		
+	6、nodeType
+	
+		元素节点：1
+		属性节点：2
+		文本节点：3
+	
+	7、nodeValue
+	
+		属性节点：属性值
+		文本节点：文本内容
+		元素节点：null
+		
+	8、replaceChild() 把一个给定父元素里的一个子节点替换为另外一个子节点
+	
+		var reference = element.replaceChild(newChild,oldChild)；
+		返回值指向已经被替换掉的那个子节点的引用
+		
+	9、getAttribute() 返回一个给定元素的给定属性的节点的值
+	
+		var attributeValue = element.getAttribute(attributeName)；
+		参数须以字符串的形式，返回属性的值也是字符串形式；
+		通过属性获取属性节点
+		
+	10、setAttribute() 将给定元素添加一个新的属性或改变它现有属性的值
+	
+		element.setAttribute(attributeName,attributeValue);
+		参数均为字符串，属性已经存在，那么值将被attributeValue取代，属性不存在，那么先创建它，再给他赋值
+		
+	11、createElement() 按照给定的标签名创建一个新的元素节点，方法的参数为被创建的元素的名称
+	
+		var reference = document.createElement(elementName);
+		方法的返回值指向新建节点的引用，返回值是一个元素节点，所以nodeType 为1 ；
+		新建的节点不会自动添加到文档里，只是存在于document里一个游离的对象 
+		
+	12、createTextNode() 创建一个文本节点
+	
+	13、appendChild() 为给定元素增加子节点
+	
+		var newreference = element.appendChild(newChild);
+		给定子节点newChild将成为element的最后一个节点；
+		返回值指向新增节点的引用；
+		通常与createElement()与createTextNode()一起使用；
+		新节点可以追加给文档中的任何一个元素（不是属性和文本）
+		
+	14、insertBefore() 把一个给定节点插入到一个给定元素子节点的前面
+	
+		var reference = element.insertBefore(newNode,targetNode)；
+		newNode节点将作为element的子节点出现，并在targetNode节点的前面，节点targetNode必须是element的一个子节点；
+		方法通常与createElement和createTextNode结合使用
+		
+	15、removeChild() 从给定的元素里删除一个子节点
+	
+		var reference = element.removeChild(node)；
+		返回值指向已经被删除的子节点的引用，当某个子节点被删除时，这个子节点所包含的子节点也被删除掉
+		
+	16、childNodes() 返回一个数组，这个数组是由给定节点的子节点组成的
+		
+		

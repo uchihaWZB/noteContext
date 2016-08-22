@@ -1,0 +1,87 @@
+jQuery 是一个 JavaScript 库，轻量级的"写的少，做的多"
+
+jQuery库功能：
+
+	HTML 元素选取、操作
+	
+	HTML 事件函数
+	
+	HTML DOM 遍历和修改
+	
+	CSS 操作
+	
+	JavaScript 特效和动画
+	
+	AJAX
+	
+	Utilities
+	
+引入JQuery：<script src="jquery-1.10.2.min.js"></script>        在 HTML5 中，不必加 type="text/javascript" 。JavaScript 是 HTML5 以及所有现代浏览器中的默认脚本语言！
+
+JQuery语法：
+	
+	$(selector).action()
+
+		美元符号定义、选择符（selector）"查询"和"查找" HTML 元素、action() 执行对元素的操作
+				
+			
+	$(document).ready(function(){
+
+	   // jQuery methods go here...         防止文档在完全加载（就绪）之前运行 jQuery 代码
+
+	});
+	
+	jQuery = $
+	
+	
+JQuery对象和DOM对象
+
+	传统Javascript所获得的DOM元素即为DOM对象；
+	
+	JQuery对象是通过JQuery包装DOM对象后产生的对象；JQuery对象可以使用JQuery里的方法
+	
+		eg：
+			$("#id") 是JQuery对象，可以 $("#id").html() 使用html()方法（JQuery里的）
+			
+			document.getElementById("id") 是DOM对象，document.getElementById("id").innerHTML中innerHTML是DOM方法
+			
+			$("#id").html() 等价于 document.getElementById("id").innerHTML
+			
+	JQuery对象与DOM对象相互转换
+	
+		先约定：
+			var $variable JQuery对象
+			var variable  DOM对象
+			
+		JQuery ---> DOM 
+
+			var $a = $("#a");	var a = $a[0];
+			var $a = $("#a");	var a = $a.get(0);
+			
+			JQuery对象是一个类似数组的对象
+			
+		DOM ---> JQuery
+		
+			用$()把DOM对象包装起来即可
+			
+		
+		！注：DOM对象才能用DOM中方法，JQuery对象不可以用
+			
+		
+			
+JQuery选择器：
+
+	对 HTML 元素组或单个元素进行操作，jQuery 选择器基于元素的 id、类、类型、属性、属性值等"查找"（或选择）HTML 元素
+	
+	所有选择器都以：$() 开头
+	
+
+JQuery事件：
+
+
+	常见 DOM 事件：
+					鼠标事件	键盘事件	表单事件	文档/窗口事件
+					click		keypress	submit		load
+					dblclick	keydown		change		resize
+					mouseenter	keyup		focus		scroll
+					mouseleave	 			blur		unload

@@ -1,0 +1,228 @@
+Git		最先进的分布式版本控制系统
+
+	版本控制 形象化：
+	
+		版本	用户	说明					日期
+		
+		1		张三	删除了软件服务条款5		7/12 10:38
+		2		张三	增加了License人数限制	7/12 18:09
+		3		李四	财务部门调整了合同金额	7/13 9:51
+		4		张三	延长了免费升级周期		7/14 15:17
+		
+	集中式和分布式：
+	
+		集中式：版本库放在中央服务器中，干活时：每个人先从中央服务器拉代码到自己的电脑--->自己干活--->干完了再推送回中央服务器；
+		
+			缺点：必须联网
+			
+		分布式：没有中央服务器，每个人都有一个完整的版本库，两个人同时改了文件A，只需把各自修改推送给对方即可；
+		
+		
+	
+安装完Git后进行设置：
+
+	$ git config --global user.name "Your Name"
+	$ git config --global user.email "email@example.com"
+	
+	--global 表示当前这台机器所有的Git仓库都会使用这个配置，当然也可以对某个仓库指定不同的用户名和Email地址。
+
+（基本几个Git命令使用）	
+	
+创建版本库：
+
+	版本库即仓库，repository，一个目录，所有文件都可以被Git管理起来，每个文件的修改、删除，Git都能跟踪，以便任何时刻都可以追踪历史，或者在将来某个时刻可以“还原”。
+	
+	找到一个空文件夹
+	
+		$ mkdir learngit
+		$ cd learngit
+		$ pwd									pwd用以显示当前目录
+		/Users/michael/learngit
+		
+		$ git init								
+		Initialized empty Git repository in /Users/michael/learngit/.git/
+		
+		用 git init 命令将此目录变为Git可以管理的仓库
+		
+提交、管理文件
+
+	把要提交的文件放在Git仓库下，如：readme.txt
+	
+	$ git add readme.txt						把文件提交到暂存区（可多次add不同文件）
+	
+	$ git commit -m "wrote a readme file"		把文件提交到仓库区
+	
+	$ git status								查看当前仓库的状态（变更的文件信息 等）
+	
+	$ git add readme.txt						查看某个文件 当前状态和暂存区 的差异
+	
+	$ git log									显示从最近到最远的提交日志
+		
+	$ git reset --hard HEAD^					回退到上一个版本（在Git中，用HEAD表示当前版本，上一个版本就是HEAD^，上上一个版本就是HEAD^^，往上100个版本HEAD~100）
+
+	$ git reset --hard 3628164					回退到具体某个版本，版本号没必要写全（版本回退实质上是把Git中的 HEAD指针指向你需要回退的版本号）
+	
+	$ git reflog 								用来记录你的每一次命令
+	
+工作区和暂存区
+
+	工作区的一个隐藏目录 .git --Git的版本库
+	
+		暂存区（stage/index）
+		自动创建第一个分支master
+		指向master的一个指针HEAD
+	
+	工作区		git add		 暂存区      git commit      当前分支/版本库    (HEAD指向该分支/版本库)
+	(workspace)------------->(stage)------------------->(master/repository)
+	
+	每次修改，须先 add 到暂存区，再 commit 到当前分支，commit命令只负责把暂存区的修改提交
+	
+撤销修改
+
+	$ git checkout -- readme.txt				丢弃工作区(workspace)的修改（两种情况：1、修改后还没有被放到暂存区，现在，撤销修改就回到和版本库一模一样的状态；
+																					   2、已经添加到暂存区后，又作了修改，现在，撤销修改就回到添加到暂存区后的状态；
+																					   总之，就是让这个文件回到最近一次git commit或git add时的状态。）
+				   --很重要，没有--，就变成了“切换到另一个分支”的命令
+				   
+				   
+				   还有如果一旦提交到了版本库，让版本回退即可，但要是推送到了远程仓库那就GG了
+				   
+				   
+				   
+Git远程仓库
+
+	在GitHub网站上建立远程版本库
+	
+		1、创建SSH Key：用命令 $ ssh-keygen -t rsa -C "youremail@example.com"，在用户主目录下 .ssh目录里有id_rsa和id_rsa.pub两个文件，这两个就是SSH Key的秘钥对，id_rsa是私钥，不能泄露出去，id_rsa.pub是公钥，可以放心地告诉任何人。
+		
+		2、在GitHub上将公钥的内容写入
+		
+	添加远程库
+		
+		$ git remote add origin git@github.com:uchihaWZB/learngit.git
+		
+		uchihaWZB：是GitHub的账户名
+		origin：指远程库的名字，是Git的默认叫法
+		
+	把本地库内容推送到远程库上
+	
+		$ git push -u origin master
+		
+		-u参数，第一次推送时会把本地 master分支和远程master分支关联起来。
+		
+		
+	ssh警告：当你第一次使用Git的clone或者push命令连接GitHub时，会得到一个警告
+	
+				The authenticity of host 'github.com (xx.xx.xx.xx)' can't be established.
+				RSA key fingerprint is xx.xx.xx.xx.xx.
+				Are you sure you want to continue connecting (yes/no)?
+				
+			这是因为Git使用SSH连接，而SSH连接在第一次验证GitHub服务器的Key时，需要你确认GitHub的Key的指纹信息是否真的来自GitHub的服务器，输入yes回车即可。
+			
+	克隆远程库：
+	
+		现在GitHub上创建一个远程库，再用命令 $ git clone git@github.com:uchihaWZB/gitskills.git 克隆远程库
+		
+		要克隆一个仓库，首先必须知道仓库的地址，然后使用git clone命令克隆。Git支持多种协议，包括https，但通过ssh支持的原生git协议速度最快。
+		
+		
+		
+Git分支管理
+
+	每次修改提交，Git会将其串成一条时间线：	提交1--------->提交2-------->提交3
+	
+	一条时间线就是一条分支，默认主分支是master，HEAD指针指向某一分支，分支再指向某个提交
+	
+			提交1--------->提交2-------->提交3
+										　 |
+										　 |
+										　 |
+										master
+										   |
+										   |
+										   |
+										 HEAD 
+										 
+	创建一个dev分支，即创建了一个指针叫dev，指向master相同的提交
+	
+	
+										 dev
+										　|
+										　|
+										　|
+			提交1--------->提交2-------->提交3
+										　 |
+										　 |
+										　 |
+										master
+										   |
+										   |
+										   |
+										 HEAD 
+	
+	$ git checkout <分支名称> ： 作用是切换分支，实际上是切换HEAD指针的指向
+	
+										 HEAD 
+										   |
+										   |
+										   |
+										  dev
+										　 | 
+										　 |
+										　 |
+			提交1--------->提交2-------->提交3
+										　 |
+										　 |
+										　 |
+										master
+										
+	HEAD指针指向dev后，对工作区（index）的修改和提交就针对dev了，新的提交dev向前，而master不变
+	
+													 HEAD 
+													   |
+													   |
+													   |
+													  dev
+													　 | 
+													　 |
+													　 |
+			提交1--------->提交2-------->提交3------->提交4
+										　 |
+										　 |
+										　 |
+										master
+										
+	把dev上的工作合并到master上：先切回master分支，再用命令 $ git merge dev 即可
+	
+	
+	git branch：查看分支
+	git branch <name>：创建分支
+	git checkout <name>：切换分支
+	git checkout -b <name>：创建+切换分支
+	git merge <name>：合并某分支到当前分支 （<name>的分支是指 非HEAD指针当前指向的分支）
+	$ git branch -d <name>：删除某分支
+	
+	补：git的分支必须指向一个提交（commit），所以没有任何commit就没有任何分支，提交第一个commit后git自动创建master分支
+	
+Git解决冲突
+
+	当Git无法自动合并分支时，就必须首先解决冲突。解决冲突后，再提交，合并完成
+
+Git分支管理策略
+
+	默认合并分支时，Git使用	Fast forward 模式，删除分支后，会丢失分支信息
+	
+	强制禁用Fast forward：$ git merge --no-ff -m "merge with no-ff" dev
+	
+										--no-ff，禁用参数
+										-m 禁用时，merge会生成一个新的commit，所以可以添加备注信息
+										
+	当前分支工作未完成需要切换到其他分支工作时，保存当前分支工作
+	
+		$ git stash
+		
+	其他分支工作做完了，再切回之前$ git stash的分支，用
+	
+		$ git stash pop		恢复之前的工作
+		
+	在恢复之前，可以用 $ git stash list 查看保存过的工作

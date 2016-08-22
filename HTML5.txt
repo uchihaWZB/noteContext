@@ -1,0 +1,48 @@
+HTML5是继HTML4.01和XHTML1.0之后的超文本标记语言的最新版本，以实现多媒体支持，交互性，更加智能的表单，以及更好的语义化标记
+
+	 不仅是HTML规范的最新版本，而且是一系列制作富Web的相关技术总称		（HTML4.01 编码不规范、XHTML1.0 虽然规范，但有更严格的错误处理规则）
+	 
+特点：
+
+	向下兼容：已存在的Web页面，保证正确显示
+	
+	用户至上：编码不严谨时警告，但正确显示
+	
+	化繁为简：浏览器原生功能替代JavaScript、DOCTYPE、字符集，API强大
+	
+	无插件范式：内部支持以往需要插件的功能
+	
+	引入语义：区分标记元素，也是配合CSS
+	
+	......
+
+HTML5 中的一些有趣的新特性：
+
+	用于绘画的 canvas 元素；
+	
+	用于媒介回放的 video 和 audio 元素；
+	
+	对本地离线存储的更好的支持；
+	
+	新的特殊内容元素，比如 article、footer、header、nav、section；
+	
+	新的表单控件，比如 calendar、date、time、email、url、search
+	
+	
+最小的HTML5文档
+
+	<!DOCTYPE html>
+	<html>
+	<head>
+	<meta charset="utf-8">
+	<title>文档标题</title>
+	</head>
+
+	<body>
+	文档内容......
+	</body>
+
+	</html>
+	
+	
+表单元素（补充）
