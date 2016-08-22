@@ -104,6 +104,8 @@ Git远程仓库
 		uchihaWZB：是GitHub的账户名
 		origin：指远程库的名字，是Git的默认叫法
 		
+		！！ 第一次把本地文件推送到远程库：在GitHub上先创建对应远程库，把地址clone下来，再把文件添加到clone下来的库中
+		
 	把本地库内容推送到远程库上
 	
 		$ git push -u origin master
