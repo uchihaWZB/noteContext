@@ -228,3 +228,37 @@ Git分支管理策略
 		$ git stash pop		恢复之前的工作
 		
 	在恢复之前，可以用 $ git stash list 查看保存过的工作
+
+	
+新建本地项目并推送到远程Git仓库
+
+	如果有一个没有使用Git管理的项目，想要使用Git管理，该怎么做？，其实很简单。 准备条件: 
+	1. 新建一个文件夹作为项目的根目录，如demo
+	2. 在远程服务器上新建一个仓库，并命名，假设新建好的仓库的地址是https://github.com/johnxue2013/ocdemo.git
+	3. 进入步骤一中新建的文件夹demo，添加需要添加的文件，如README.md，右击选择git bash here（windows上是这样操作，如果在mac或者linux上，需要从终端进入）
+	
+ 执行如下命令:
+
+		$ git init
+		$ git status
+		$ git add README.md
+		$ git commit -m "first commit"
+		$ git remote add origin https://github.com/johnxue2013/ocdemo.git
+		$ git push -u origin master
+		执行后，本地Git仓库的数据，将被推送到远程Git仓库。
+		
+标签管理：
+
+	标签是版本库的快照，实际上是指向某个commit的指针
+	
+	创建标签：
+	
+		先切换到需要打标签的分支上，再：git tag <name>
+		
+		默认标签打在最新提交的commit上，也可特定打在某个commit上，git tag <name> <commit号>
+		
+	删除标签：
+	
+		git tag -d <tagname>
+		
+
