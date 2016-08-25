@@ -45,4 +45,88 @@ HTML5 中的一些有趣的新特性：
 	</html>
 	
 	
-表单元素（补充）
+	
+-HTML5本地存储---------------------------------------------------------------------------------------------------------------------------------------------------
+
+	HTML5 web 存储,一个比cookie更好的本地存储方式。
+	
+	localStorage存储在计算机上，网站在页面加载完毕后通过JavaScript获取数据
+	
+	
+		局限：
+			
+			
+		
+	
+	客户端存储数据的两个对象为：
+	
+		localStorage - 没有时间限制的数据存储
+		sessionStorage - 针对一个 session 的数据存储
+		
+	说明：
+		1、localStorage拓展了cookie的4K限制，相当于一个5M大小的针对于前端页面的数据库；
+		2、cookie有一个机制，每次客户端请求服务器的时候都会将cookie发送给服务器；而localStorage只把数据存储在了客户端使用，不会发送的服务器上（除非你故意这样做）；
+		3、对于某一个域下来说，local storage是共享的（多个窗口共享一个“数据库”）；
+		4、localStorage用于持久化的本地存储，除非主动删除数据，否则数据是永远不会过期的；
+		5、sessionStorage所存储数据的生命周期，和Session类似，关闭浏览器（或标签页）后数据就不存在了。但刷新页面或使用“前进”、“后退按钮”后sessionStorage仍然存在；
+		6、session storage每个窗口的值都是独立的（每个窗口都有自己的数据），它的数据会随着窗口的关闭而消失，窗口间的sessionStorage也是不可以共享的；
+		7、HTML5本地存储的key、value使用的是字符串的形式进行存储的；
+		8、IE8以上的IE版本才支持localStorage这个属性；
+		9、localStorage在浏览器的隐私模式下面是不可读取的；
+		10、localStorage本质上是对字符串的读取，如果存储内容多的话会消耗内存空间，会导致页面变卡；
+		11、localStorage不能被爬虫抓取到；
+		
+		localStorage与sessionStorage的唯一一点区别：
+													localStorage属于永久性存储，而sessionStorage属于当会话结束的时候，sessionStorage中的键值对会被清空
+		
+	在使用 web 存储前,应检查浏览器是否支持 localStorage 和sessionStorage:
+	
+		if(window.localStorage)		//以localStorage为例
+		{
+			// 是的! 支持 localStorage  sessionStorage 对象!
+			// 一些代码.....
+		}
+		else
+		{
+			// 抱歉! 不支持 web 存储。
+		}
+		
+	常用方法：
+	
+		var storage = window.localStorage;
+	
+		写入数据：1、storage["name"] = 'wang';
+				  2、storage.name = 'wang';
+				  3、storage.setItem("name","wang")		//推荐
+				  
+		读取数据：1、storage["name"]；
+				  2、storage.name；
+				  3、storage.getItem("name")		//推荐
+				  
+		移除数据：1、storage.removeItem("name")		//移除某个
+				  2、storage.clear()				//移除所有
+				  
+		通过键的索引获取值：
+				for(var i=0;i<storage.length;i++){
+					var key=storage.key(i);
+					console.log(key);
+				}
+				
+		将JSON存入localStorage：
+		
+				var data={
+					name:'xiecanyong',
+					sex:'man',
+					hobby:'program'
+				};
+				
+				 var d=JSON.stringify(data);		//JSON.stringify()将JSON转换为JSON字符串
+				 storage.setItem("data",d);
+				 
+				var json=storage.getItem("data");	//用的时候再取出
+				var jsonObj=JSON.parse(json);
+				
+				
+-HTML5本地存储---------------------------------------------------------------------------------------------------------------------------------------------------
+				 
+
