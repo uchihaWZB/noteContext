@@ -1,0 +1,128 @@
+
+层叠样式表，解决如何显示HTML元素
+	
+CSS 由两个住院部分构成：选择器，一到多条声明。
+	
+eg：h1 {color:blue; font-size:12px}
+
+	1、CSS选择器：
+
+			id选择器：		#intro		选择 id=“intro”的所有元素
+			
+			class选择器：	.intro		选择 class=“intro”的所有元素
+			
+			*选择器：		*			选择所有元素
+			
+			元素选择器：	p			选择所有 <p>元素
+			
+			选择器分组：	div,p		选择所有 <div>和<p>元素
+			
+			后代选择器：	div p		选择 <div>元素内部的所有<p>元素
+			
+			子元素选择器：	div>p		仅选择父元素为<div>的所有<p>元素
+			
+			相邻兄弟选择器：div+p		选择紧接在<div>元素之后的所有<p>元素，二者拥有相同的父元素
+			
+		普通相邻兄弟选择器：div~p		选择与<div>元素相邻的所有<p>元素
+			
+			属性选择器：	[title]		选择含有 title属性的所有元素	eg：a[title][href]: 选择同时含有title和href属性的元素
+			
+	
+	
+	2、插入样式表：
+
+			外部样式表		<link rel="stylesheet" type="text/css" href="mystyle.css">
+							外部样式表可以在任何文本编辑器中进行编辑。文件不能包含任何的 html 标签。样式表应该以 .css 扩展名进行保存。
+			
+			内部样式表		<style>
+								p {color : red;}
+								h1{margin-left : 12px;}
+							</style>
+							当单个文档需要特殊的样式时，就应该使用内部样式表。你可以使用 <style> 标签在文档头部定义内部样式表
+			
+			内联样式		<p style="color:sienna;margin-left:20px">This is a paragraph.</p>
+							当样式仅需要在一个元素上应用一次时。要使用内联样式，你需要在相关的标签内使用样式（style）属性 （慎用）
+							
+			优先级：  内联 > 内部样式表 > 外部样式表 > 浏览器缺省设置
+			
+		
+	3、CSS盒子模型：
+
+			所有HTML元素可以看作盒子
+			
+			Margin(外边距) - 清除边框外的区域，外边距是透明的。
+							 margin：25px 50px 75px 100px; 上 右 下 左
+							 margin：25px 50px 75px;	   上 左右  下
+							 margin：25px 50px;			   上下  左右
+							 margin：25px;				   四个方向
+			
+			Border(边框) - 围绕在内边距和内容外的边框。
+			
+			Padding(内边距) - 清除内容周围的区域，内边距是透明的。
+			
+			Content(内容) - 盒子的内容，显示文本和图像。
+			
+			元素的完全大小还要考虑其填充
+		
+	4、块状元素和内联元素：
+
+			block（块状元素）：独占一行；高度，行高以及顶、底边距都可控制；宽度缺省是它所在容器的100%，除非设定一个宽度。
+							   可容纳内联元素和其他块状元素。
+							   div、p、h1~h6、ol、ul、table、form、dl
+							   
+			inline（内联元素）：和其它元素都在一行上；高度，行高以及顶、底边距不可改变； 宽度就是它所容纳的文字或图片的宽度，不可改变。
+								内联元素只能容纳文本或者其他内联元素。
+								a、img、span、label、input、strong
+								
+							
+	5、body,div,span,a{		不同浏览器都有默认的margin 或padding值的，加上这句就可以删除浏览器这些默认值，方面后面的设置。
+		padding:0;				
+		margin:0;
+		}
+		
+	6、CSS定位
+	
+			Position : Static，Fixed，Absolute，Relative
+
+			Static：HTML元素的默认值，即没有定位，元素出现在正常的流中；
+			
+			Fixed：元素的位置相对于浏览器窗口是固定位置，即使窗口是滚动的它也不会移动；
+			
+		   *Absolute：绝对定位的元素的位置相对于最近的已定位父元素，如果元素没有已定位的父元素，那么它的位置相对于<html>，即浏览器；
+					  
+					  若想把一个定位属性为absolute的元素定位于其父级元素内，须满足：
+							父级设定Position属性（无论是absolute还是relative）；
+							设定TRBL
+							
+			*Relative：默认参照父级的原始点为原始点，配合TRBL进行定位
+					   无论父级存在不存在，无论有没有TRBL，均是以父级的左上角进行定位，但是父级的Padding属性会对其影响；
+					   
+					   
+		    总结：absolute不能用来布局，会导致所有的DIV都相对于浏览器的左上角定位，absolute只能用于将某个元素定位于属性为absolute的元素的内部某个位置。
+				  所以，如果用定位来布局页面，父级元素的position属性必须为relative，而定位于父级内部某个位置的元素，最好用absolute，因为它不受父级元素
+				  的padding的属性影响，当然你也可以用relative，计算的时候不要忘记计算padding的值。
+				  
+    7、CSS Hack（兼容CSS在不同浏览器中正确显示的技巧方法）
+	
+			!important:
+			
+				#content{
+					  height:960px !important;	IE7/IE8/IE9/FireFox 识别 !important 就不会执行第二句“ height:900px;”，而IE6不识别!important，就会执行
+					  height:900px;				第二句“ height:900px;”，从而覆盖第一句的“height:960px;”
+				}
+				
+			*:
+			
+				#content{
+					  height:960px;
+					 *height:900px;				IE8/IE9/FireFox 不会识别*，所以只会读第一句，而IE6/IE7可以识别* 读第二句会覆盖第一句。
+				}
+				
+	8、CSS伪类和伪元素
+	
+		均是预定义的，独立于文档元素。是基于特殊状态的元素（伪类）或元素中特别的内容（伪元素）来获取。
+		两者是不同的，但都属于CSS选择器的范畴。两者的引入都是因为在文档树里有些信息无法被充分描述
+		
+		伪类：	类似于class，用于向某些选择器添加特殊的效果	（用单冒号:）
+		
+		伪元素：类似于<p>标签元素，实际上不存在于文档树中	（CSS1和CSS2中用单冒号:，CSS3中用双冒号::）
