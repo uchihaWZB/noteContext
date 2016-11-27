@@ -1,0 +1,53 @@
+Java语言概述
+
+	诞生于1995年，sun公司。在2009年被Oracle（甲骨文公司）收购
+	
+	1、简洁有效，面向对象；
+	2、跨平台性好。Java写好的程序可以在任何系统上运行。一次编译，处处运行
+		Java为每个平台提供了 JVM（Java虚拟机）
+	3、适合大型企业级管理系统，大型互联网系统（分布式系统）
+	
+Java语言分支
+
+	JavaSE：(标准版) 是Java基础
+	
+	JavaME：移动端开发，已被安卓，iOS代替
+	
+	JavaEE：(企业级) 面向企业级
+	
+Java环境的搭建
+
+	JDK：JavaDevelopmentKit Java开发工具 开发时使用的 （我们只安装JDK即可）
+	
+		JRE：JavaRuntimeEnvironment Java运行环境
+			
+			JVM（Java虚拟机）：Java程序在Java虚拟机中运行；
+			
+			Java核心类库：jre提供的让程序能运行的Java类
+			
+		Java开发工具：Java编译器，Java解释器
+		
+	Java运行关系：
+	
+		Java源文件(.java文件)----(java编译器javac.exe)---->Java字节码文件(.class文件)----(由解释器java.exe将字节码加载到JVM)---->JVM(.class文件会在JVM中执行)
+		
+	环境变量classpath(类路径)：
+		配置了classpath，运行Java程序时会优先去classpath的路径找class文件运行，就可以在任意目录来运行Java程序
+	
+	/**
+	* Java程序以类的方式组织 Class
+	* 一个源程序至少有一个类，public表示这个类为公共的，一个Java文件只能有一个public类
+	* 类名（公共类的类名必须和文件名一致）首字母大写
+	*/
+	public class Hello {
+		public static void main(String args[]) {
+			System.out.println("hello!");
+		}
+	}
+		
+		
+		
+			
+	
+	
+		
