@@ -1,0 +1,71 @@
+SQL，指结构化查询语言，全称是 Structured Query Language，是一种 ANSI（American National Standards Institute 美国国家标准化组织）标准的计算机语言。
+
+	可以访问、处理数据库
+	
+创建一个显示数据库中数据的网站，需要：
+
+		RDBMS 数据库程序（比如 MS Access、SQL Server、MySQL）
+		使用服务器端脚本语言，比如 PHP 或 ASP
+		使用 SQL 来获取您想要的数据
+		使用 HTML / CSS
+		
+虽然 SQL 是一门 ANSI（American National Standards Institute 美国国家标准化组织）标准的计算机语言，但是仍然存在着多种不同版本的 SQL 语言。
+But 为了与 ANSI 标准相兼容，它们必须以相似的方式共同地来支持一些主要的命令（比如 SELECT、UPDATE、DELETE、INSERT、WHERE 等等）
+
+
+SQL语法
+
+	SQL 对大小写不敏感；
+	最好每条sql语句加上分号；
+	
+	基本SQL命令语句：
+	
+		SELECT - 从数据库中提取数据
+		UPDATE - 更新数据库中的数据
+		DELETE - 从数据库中删除数据
+		INSERT INTO - 向数据库中插入新数据
+		CREATE DATABASE - 创建新数据库
+		ALTER DATABASE - 修改数据库
+		CREATE TABLE - 创建新表
+		ALTER TABLE - 变更（改变）数据库表
+		DROP TABLE - 删除表
+		CREATE INDEX - 创建索引（搜索键）
+		DROP INDEX - 删除索引
+		
+		
+	select：用于从数据库中选取数据，结果被存储在一个结果表中，称为结果集。
+	
+		select * 表中选取所有列; select distinct 返回唯一不同的值；
+		
+		返回前几条数目：Sqlserver	SELECT TOP number|percent column_name(s) ...
+						Mysql		SELECT ... LIMIT number;
+						Oracle		SELECT ... WHERE ROWNUM <= number;
+		
+	UPDATE：语句用于更新表中的记录。
+	
+		UPDATE table_name
+		SET column1=value1,column2=value2,...
+		WHERE some_column=some_value;
+		
+	DELETE：语句用于删除表中的行。
+	
+		DELETE FROM table_name
+		WHERE some_column=some_value;
+		
+	INSERT INTO：语句用于向表中插入新记录。
+	
+		两种编写形式：INSERT INTO table_name VALUES (value1,value2,value3,...);
+					  INSERT INTO table_name (column1,column2,column3,...) VALUES (value1,value2,value3,...);
+		
+	where: 用于过滤记录=、<>、>、<、>=、<=、BETWEEN、LIKE、IN 指定针对某个列的多个可能值
+	
+	AND & OR：运算符用于基于一个以上的条件对记录进行过滤。
+	
+	ORDER BY：关键字用于对结果集进行排序。（默认升序，DESC降序）
+	
+	Like：在 WHERE 子句中搜索列中的指定模式。配合通配符使用
+	
+		通配符：%			0 个或多个字符；
+				_			替代一个字符;
+				[charlist]	字符列中的任何单一字符
+				[^charlist]	不在字符列中的任何单一字符
