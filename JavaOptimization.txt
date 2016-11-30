@@ -1,0 +1,7 @@
+优化Java代码策略
+
+减少对变量的重复计算
+	
+		 for(int i = 0;i < list.size; i ++)
+	
+	改成 for(int i = 0,int len = list.size();i < len; i ++)
