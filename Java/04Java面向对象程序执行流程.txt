@@ -1,0 +1,43 @@
+程序代码：
+
+	class Car {
+		
+		String color;
+		int carNo;
+		String name;
+		
+		public void run(){
+			System.out.println(this.color);
+		}
+		public void introduce(){
+			System.out.println("...");
+		}
+	}
+	
+	class TestCar {
+		
+		public static void main(String[] args) {
+			Car car = new Car();
+			
+			car.color = "yellow";
+			car.carNo = 88888;
+			car.name = "BMW";
+			
+			car.run();
+		}
+	}
+	
+步骤：
+	Step 1、将 TestCar 的Class文件载入至JVM，并把里面的main方法放入 方法区，再把main压入 栈中；
+	
+	Step 2、加载 Car 的Class文件至JVM，把其中的 run、introduce 方法加载至 方法区，并在 堆 中开辟了一个Car对象，在 栈 中产生了一个变量car指向 堆 中的对象；
+	
+	Step 3、给Car对象的三个属性赋值；
+	
+	Step 4、调用run方法：run 方法进 栈，把car变量所指向对象的地址赋给this，执行方法体；
+	
+	Step 5、run方法执行完：run 方法出 栈，run中的this变量被销毁；
+	
+	Step 6、main方法执行完：car引用变量被销毁，main方法出 栈，也消失；
+	
+	Step 7、由于堆中Car对象失去了变量的引用，变成 匿名对象，所以由JVM管理区销毁。
