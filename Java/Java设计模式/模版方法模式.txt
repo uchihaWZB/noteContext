@@ -1,0 +1,70 @@
+Template Method
+
+	采用Java继承机制，即对Java继承以及抽象方法、重写覆盖的使用
+	
+	模式中的角色：
+	
+		抽象类：定义了一个模版方法（整个操作的算法骨架，一般采用final修饰避免被子类修改），可以将一些抽象方法延迟实现到子类中；
+				若干个抽象方法（由子类实现）或具体方法（子类可以覆盖重写）；
+		
+		具体类：继承抽象模板类并实现抽象方法
+		
+		客户端：Main
+		
+	eg：一件工作需要排序打印一些数据。将任务分为两部分，排序 和 打印。一个人把打印的工作做好后，排序的交给别人做
+	
+	/**
+	 * 抽象模版
+	 */
+	abstract class AbstractTemplate {
+
+		//具体已实现好的方法 --可以选择是否被重写
+		public void print(int[] array) {
+			System.out.print("排序结果：");
+			for (int i = 0; i < array.length; i++){
+				System.out.printf("%3s", array[i]);
+			}
+		}
+
+		//抽象方法，延迟到子类中去实现    --必须要被重写
+		public abstract void sort(int[] array);
+
+		//整体操作的算法骨架     --不可被重写
+		public final void work(int[] array) {
+			sort(array);
+			print(array);
+		}
+	}
+
+	/**
+	 * 具体模版
+	 */
+	class ConcrateTemplate extends AbstractTemplate {
+
+		/**
+		 * 实现具体业务逻辑
+		 */
+		public void sort(int[] array) {
+			/**
+			 * 具体排序方法
+			 */
+		}
+	}
+
+	public class Main {
+		public static int[] num = {12,32,43,23,54,87,45,43};
+		public static void main(String[] args) {
+
+			//父类调用子类实现的操作
+			AbstractTemplate abstractTemplate = new ConcrateTemplate();
+			abstractTemplate.work(num);
+		}
+	}
+	
+	模版方式模式优缺点：
+	
+		优点：模板方法模式通过把不变的行为搬移到超类，去除了子类中的重复代码；
+			  子类实现算法的某些细节，有助于算法的扩展；
+			  通过一个父类调用子类实现的操作，通过子类扩展增加新的行为，符合“开放-封闭原则”
+		
+		缺点：每个不同的实现都需要定义一个子类，这会导致类的个数的增加，设计更加抽象。

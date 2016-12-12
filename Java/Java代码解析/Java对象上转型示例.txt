@@ -1,0 +1,56 @@
+abstract class Teacher {
+    String name;
+    int age;
+
+    //继承多态的抽象方法
+    public abstract void teach();
+
+    public void sleep() {
+        System.out.println(name + "老师正在睡觉");
+    }
+
+}
+class JavaTeacher extends Teacher {
+    public void teach() {
+        System.out.println(name + "老师正在讲Java课");
+    }
+
+    //子类中新加的方法smoke不能通过对象上转型对象调用
+    public void smoke() {
+        System.out.println(name + "老师正在抽烟");
+    }
+}
+class PhpTeacher extends Teacher {
+    public void teach() {
+        System.out.println(name + "正在讲PHP课");
+    }
+}
+//对象上转型后传来的是父类的对象，但其中的方法是被子类覆写过后的方法
+class Leader {
+    public void checkTeacher(Teacher t) {
+        System.out.println("考察" + t.name + "老师上课");
+        t.teach();
+        System.out.println("考察结束");
+    }
+}
+public class Demo {
+    public static void main(String[] args) {
+        //未用对象上转型
+        /*JavaTeacher jt = new JavaTeacher();
+        jt.name = "Java老师";
+        jt.teach();
+
+        PhpTeacher pt = new PhpTeacher();
+        pt.name = "Php老师";
+        pt.teach();*/
+
+        //对象上转型
+        Teacher jt = new JavaTeacher();
+        jt.name = "Java";
+        PhpTeacher pt = new PhpTeacher();
+        pt.name = "Php";
+
+        Leader l = new Leader();
+        l.checkTeacher(jt);
+    }
+}
