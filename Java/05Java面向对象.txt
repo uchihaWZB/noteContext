@@ -118,7 +118,31 @@ Java面向对象编程
 				接口的属性默认是 static final，抽象类种属性同普通类；
 				接口中方法默认抽象的不需加abstract，抽象类中抽象的方法需加abstract。
 				
-	6、多态：
+	6、内部类：
 	
+			简单说就是 在一个类内部定义的类，注意：内部类不能直接创建，应为 外部类.内部类 变量名 = new 外部类对象.内部类对象
 			
-			    
+			class Outer {
+				private static String info = "hello";
+
+				class Inner {
+					public void show() {
+						System.out.println(info);
+					}
+				}
+			}
+
+			public class Demo {
+				public static void main(String[] args) {
+					Outer.Inner inner = new Outer().new Inner();
+					inner.show();
+				}
+			}
+			
+			私有内部类：
+			
+				内部类概念中，它的外部类不能定义为private，但是内部类可以，一旦定义了 私有内部类，私有内部类的对象 只能在 私有内部类 的 外部类中创建（类比访问私有属性）
+			  
+			静态内部类：
+			
+				静态内部类的创建：Outer.Inner inner = new Outer.Inner()
