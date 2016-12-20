@@ -122,22 +122,35 @@ Java面向对象编程
 	
 			简单说就是 在一个类内部定义的类，注意：内部类不能直接创建，应为 外部类.内部类 变量名 = new 外部类对象.内部类对象
 			
-			class Outer {
-				private static String info = "hello";
+			1、常规内部类	（也可以说是成员内部类）
+			
+					作为外部类的一个成员，常规内部类中的方法可以直接使用外部类的实例变量和实例方法（即使是private的）;
+					
+					外部类 想要访问 内部类 的成员属性和方法，就必须通过内部类的实例进行访问
+					
+				***要注意的问题：成员内部类中不可有 static 的变量和方法
+								
+					原因：首先明确两点，1、内部类的创建是依赖于外部类的。一般顺序为：加载外部类，实例化外部类对象-->根据外部类对象实例化内部类对象-->分配内部类(非static)成员空间
+										
+										2、	static修饰的成员会在类实例化前就被加载、分配空间，即外部类实例化前就加载了内部类的static成员，此时，内部类还未被加载，有冲突。
+				class Outer {
+					private static String info = "hello";
 
-				class Inner {
-					public void show() {
-						System.out.println(info);
+					class Inner {
+						public void show() {
+							System.out.println(info);
+						}
 					}
 				}
-			}
 
-			public class Demo {
-				public static void main(String[] args) {
-					Outer.Inner inner = new Outer().new Inner();
-					inner.show();
+				public class Demo {
+					public static void main(String[] args) {
+						Outer.Inner inner = new Outer().new Inner();
+						inner.show();
+					}
 				}
-			}
+			
+			2、静态内部类（嵌套类）
 			
 			私有内部类：
 			
