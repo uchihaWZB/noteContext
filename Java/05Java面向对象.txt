@@ -8,7 +8,7 @@ Java面向对象编程
 
 	1、抽象：把一类事物共有的[属性]和[行为]提取出来，形成一物理模板
 	
-	2、封装(访问控制修饰符)：	将抽象出的数据和对数据的操作封装在一起。目的 提高数据安全性，设置控制访问权限。
+	2、封装(访问控制修饰符，修饰 类、方法、属性)：	将抽象出的数据和对数据的操作封装在一起。目的 提高数据安全性，设置控制访问权限。
 								数据保护在内部，其他程序只可通过被授权的操作(成员方法)才能对数据进行操作。
 				
 			公开级别：			public
@@ -124,7 +124,9 @@ Java面向对象编程
 			
 			1、常规内部类	（也可以说是成员内部类）
 			
-					作为外部类的一个成员，常规内部类中的方法可以直接使用外部类的实例变量和实例方法（即使是private的）;
+					作为外部类的一个成员，常规内部类中的方法可以直接使用外部类的实例变量和实例方法（即使是private的），不用生成外部类对象！！;
+					
+							因为创建某个 外部类的内部类对象时，内部类对象必会捕获一个指向外部类对象的引用
 					
 					外部类 想要访问 内部类 的成员属性和方法，就必须通过内部类的实例进行访问
 					
@@ -152,10 +154,88 @@ Java面向对象编程
 			
 			2、静态内部类（嵌套类）
 			
-			私有内部类：
+					静态内部类与非静态内部类之间存在一个最大的区别，我们知道非静态内部类在编译完成之后会隐含地保存着一个引用，该引用是指向创建它的外围内，但是静态内部类却没有
+					
+					所以 静态内部类的创建不需要依赖外部类（可以直接new出内部类对象，通过类名访问static，生不生成外部类对象都可），静态内部类不能使用任何非static的成员
+					
+					class Out {
+						private static int age = 12;
+						 
+						static class In {
+							public void print() {
+								System.out.println(age);
+							}
+						}
+					}
+					 
+					public class Demo {
+						public static void main(String[] args) {
+							Out.In in = new Out.In();
+							in.print();
+						}
+					}
+					
+			3、匿名类
 			
-				内部类概念中，它的外部类不能定义为private，但是内部类可以，一旦定义了 私有内部类，私有内部类的对象 只能在 私有内部类 的 外部类中创建（类比访问私有属性）
-			  
-			静态内部类：
+					1、匿名类没有访问修饰符；
+					2、new匿名内部类时，这个类是要先存在的；
+					3、匿名类是在接口和抽象类的应用上发展起来的，使用匿名类必须继承一个父类或实现一个接口；
+					
+				 ***4、匿名类 所在的方法中的形参 需要被内部类里面使用时，该形参需加 final
+					
+					说明：
+						
+						不使用匿名内部类来实现抽象方法和接口：
+						
+						抽象方法：																接口：
+						
+						abstract class A {															interface A { 
+							public abstract void method();												public void method();
+						}																			}
+						
+						class B extends A {															class B implements A {
+							public void method() {														public void method() {
+								实现方法;																	实现方法;
+							}																			}
+						}																			}
+						
+														//公共调用 抽象方法 和 实现接口方法
+															public class Demo {
+																public static void main(String[] args) {
+																	B b = new B();
+																	b.method();
+																}
+															}
+						
+						以上，B类继承了A类实现了method方法，B类实现了接口A也实现了method方法。但继承和实现接口的类如果只使用一次，就显得很麻烦
+						
+						所以用到匿名类：
+						
+						匿名内部类实现抽象方法：								    匿名内部类实现接口方法：
+						
+						abstract class A {															interface A { 
+							public abstract void method();												public void method();
+						}																			}
+						
+						
+														//公共调用 抽象方法 和 实现接口方法
+															public class Demo {
+																public static void main(String[] args) {
+																	
+																	/**
+																	* 接口不能实例化的，所以在new A()后有大括号，里面是实现接口内部的方法。
+																	* 实际上就是指一个匿名类实现接口的方法。
+																	*/
+																	A a = new A() {
+																		public void method() {
+																			实现方法;
+																		}
+																	};
+																	
+																	a.method();
+																}
+															}
+					
+					结论：只要一个类是抽象的或是一个接口，其子类中的方法就可以使用匿名内部类进行实现。最常用：多线程，要继承 Thread类 或 Runnable接口
 			
-				静态内部类的创建：Outer.Inner inner = new Outer.Inner()
+			
