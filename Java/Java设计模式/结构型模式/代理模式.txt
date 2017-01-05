@@ -1,0 +1,67 @@
+
+代理模式定义：为 其他对象 提供一种 代理 以控制对这个对象的访问
+
+			  某些情况下，一个客户不想或者不能直接引用另一个对象，即采取代理对象 在客户端和目标对象间起到中介的作用。
+
+代理模式中的角色：
+
+	抽象角色：用以声明 真实对象 和 代理对象 共同的接口；
+	
+	真实角色：被委托的角色，即被代理对象代理的角色；
+	
+	代理角色：代理类。含有对真实角色对象的引用，可以操作真实对象
+	
+	
+	//抽象接口，定义主要功能方法
+	public interface Subject {
+		public void operate();
+	}
+	
+	//真实的操作，重写抽象方法
+	public class RealSubject implements Subject {
+	
+		@Override
+		public void operate() {
+			//具体实现的方法
+		}
+	}
+	
+	//代理类，代理执行真实方法
+	public class Proxy implements Subject {
+	
+		private Subject subject;
+		
+		public Proxy(Subject subject) {		//设置代理的真实操作
+			super();
+			this.subject = subject;			//设置代理的子类
+		}
+		
+		@Override
+		public void operate() {
+			before();
+			realSubject.operate();		//这里执行真实对象的方法
+			after();
+		}
+		
+		//代理中执行的其他方法
+		private void before(){//代理前的方法}
+		private void after(){//代理后的方法}
+	}
+	
+	//测试
+	public class ProxyTest {
+		public static void main(String[] args) {
+			Subject subject = null;					//定义接口对象
+			subject = new Proxy(new RealSubject());	//实例化代理，同时传入代理的真实操作
+			subject.operate();						//客户只关心真实的操作
+		} 
+	}
+	
+	以上方法属于 静态代理。静态代理实现中，一个真实对象对应一个代理类，代理类在编译期间就已经确定。
+	
+	问题：真实角色必须是事先已经存在的，并将其作为代理对象的内部属性。
+		  实际情况，一个真实角色必须对应一个代理角色，如果大量使用会导致类的急剧膨胀。
+		  且若事先不知真实角色，无法代理
+								 
+	
+	动态代理：

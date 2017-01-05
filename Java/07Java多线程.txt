@@ -1,0 +1,60 @@
+
+程序：为完成任务、用特定语言编写的一组指令集合。一段静态代码
+
+进程：是程序的一次动态执行过程，代码加载-->执行-->执行完毕。是系统进行调度和资源分配的独立单位。
+
+线程：理解为比进程更小的执行单位，有自己的入口和出口、顺序执行的序列。线程不能独立存在，需依附于进程，各线程间共享进程空间数据
+
+	  线程的创建、销毁、切换的负荷小于进程，轻量级进程
+	  
+	  
+线程由程序管理，进程由OS调度
+
+Java应用程序总是从main方法开始执行，当JVM加载代码，发现main方法之后，就会启动一个线程，这个线程称作“主线程”，该线程负责执行main方法
+
+实现多线程，即在主线程中创建新的线程对象
+
+	Java中两种方法：	继承Thread类，  实现Runnable接口
+		
+		继承Thread类：
+		
+			class 类名称 extends Thread，必须重写Thread类中run方法。
+			
+			调用线程要用 start()方法
+			
+			继承Thread类方法实现多线程，每个线程实例只能调用一次start()方法
+			
+		实现Runnable接口:
+		
+			class 类名称 implements Runnable
+			
+			实现Runnable接口方法的多线程 还是要依靠 Thread类来启动
+			
+				class MyThread implements Runnable {
+					public void run() {
+						//TODO
+					}
+				}
+				....
+				main方法中{
+					MyThread my1 = new MyThread();
+					Thread t1 = new Thread(my1);
+					t1.start();
+				}
+				....
+				
+	两种方法对比：
+	
+		Thread类也是Runnable接口的子类，只是Thread中没有完全实现Runnable中的run()方法。
+		
+		实现Runnable接口 对比 继承Thread类 有如下显著优势：
+		
+			1、适合多个相同程序代码的线程去处理同一资源的情况；
+			2、可以避免由于Java的单继承带来的局限性；
+			3、增强了程序的健壮性，代码可以被多个线程共享，代码于数据是独立的
+		
+		
+		
+线程的状态：任何线程一般具有5种状态：创建、就绪、运行、阻塞、终止
+
+		

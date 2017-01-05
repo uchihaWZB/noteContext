@@ -51,7 +51,7 @@ Java的类与对象
 		***通过this可以调用同类中的构造器（必须置于构造方法中的第一行）：this(参数列表)
 		
 				Person(String name){
-					this.name = name;
+					this.name = name
 				}
 				
 				Person(String name, int age) {

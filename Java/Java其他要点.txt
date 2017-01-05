@@ -1,0 +1,11 @@
+
+--Java异常
+
+	异常和错误：
+	
+		错误Error 和 异常Exception 都是Throwable的子类
+		
+		Error是程序出了严重的问题，程序无法解决（如内存溢出。。。）
+		
+		Exception
+		

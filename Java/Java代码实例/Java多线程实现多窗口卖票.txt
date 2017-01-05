@@ -1,0 +1,43 @@
+class MyThread implements Runnable {
+	private int ticket = 100;
+	private boolean flag = true;
+	
+	private synchronized void sale() {
+		if (ticket <= 0) {
+			flag = false;
+			return;
+		}
+		ticket--;
+		System.out.println(Thread.currentThread().getName() + "卖了一张票，还剩" + ticket + "张票");
+	}
+	
+	@Override
+	public void run() {
+		while(flag) {
+			sale();
+		}
+		
+		try {
+			Thread.sleep(200);
+		} catch(InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+}
+public class Demo1 {
+	
+	public static void main(String[] args) {
+		MyThread my = new MyThread();
+		Thread t1 = new Thread(my, "窗口A");
+		Thread t2 = new Thread(my, "窗口B");
+		Thread t3 = new Thread(my, "窗口C");
+		
+		t1.start();
+		t2.start();
+		t3.start();
+		
+				
+	}
+}
