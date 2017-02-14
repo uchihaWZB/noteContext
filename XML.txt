@@ -1,0 +1,25 @@
+XML		可扩展标记语言
+
+	用以传输和存储数据，简化数据的存储和共享
+	
+	xml标签对大小写敏感，需要正确嵌套，文档需要有根元素，属性值要加引号
+	
+	xml注释	<!-- This is a comment -->
+	
+	xml实体引用：
+	
+		&lt;	<	less than
+		
+		&gt;	>	greater than
+		
+		&amp;	&	ampersand
+		
+		&apos;	'	apostrophe
+		
+		&quot;	"	quotation mark
+		
+	xml命名规则：不以数字或标点开头；不以字母xml、XML、Xml等开头；不包含空格
+	
+	xml中尽量避免使用属性：属性不包含多个值，不包含树结构，不易扩展
+	
+	

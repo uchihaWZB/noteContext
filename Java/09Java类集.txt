@@ -1,0 +1,20 @@
+类集可以看成一个动态的对象数组，（数组若作为集合，其局限性，长度是固定的）
+
+	Collection
+		
+		List
+			
+			ArrayList,Vector,LinkedList
+		
+		Set
+		
+			HashSet,TreeSet,LinkedHashSet
+			
+			
+迭代器：对某一集合序列类型的数据结构的遍历行为和被遍历的对象进行分离
+
+ArrayList和LinkedList的大致区别如下
+	
+	1.ArrayList是实现了基于动态数组的数据结构，LinkedList基于链表的数据结构。 
+	2.对于随机访问get和set，ArrayList觉得优于LinkedList，因为LinkedList要移动指针。 
+	3.对于新增和删除操作add和remove，LinedList比较占优势，因为ArrayList要移动数据。 

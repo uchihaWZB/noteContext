@@ -1,0 +1,113 @@
+
+一般情况下，直接生成对象可能要考虑很多问题。用一个工厂来创建对象，即是为了方便的创建对象又不必关心构造对象的细节和复杂过程
+
+		工厂模式：主要用来实例化有共同接口的类，工厂模式可以动态决定应该实例化那一个类。
+		
+一般分三类：
+
+	1、简单工厂模式 （静态工厂）
+	
+		抽象产品角色：是具体产品继承的的父类或实现的接口。
+		
+		具体产品角色：工厂类所创建的对象就是这个角色的实例。
+		
+		抽象工厂角色：工厂方法的核心
+		
+		
+		抽象产品（共同接口）：
+				  public interface Fruit { public void eat(); }
+				  
+	    具体产品：
+				  public class Apple implements Fruit {
+					public void eat() {
+						//吃苹果
+					}
+				  }
+				  
+				  public class Orange implements Fruit {
+					public void eat() {
+						//吃橘子
+					}
+				  }
+				  
+	    工厂类，负责生产产品(核心)：
+			
+				  public class SimpleFactory {
+					public static Fruit getFruit(String fruit) throws Exception {
+					
+						if(fruit.equals("apple")) {
+						
+							return new Apple();
+						} else if(fruit.equals("orange")) {
+						
+							return new Orange();
+						} else {
+						
+							throw new Exception("没有该水果");
+						}
+					}
+				  }
+				  
+	    具体下订单：
+					public static void main(String[] args) { 
+						try { 
+								  SimpleFactory.getFruit("apple"); 
+								  SimpleFactory.getFruit("orange"); 
+								  SimpleFactory.getFruit("banana"); 
+							} catch (Exception e) {
+							
+							e.printStackTrace(); 
+						} 
+					}
+
+		简单工厂模式的核心即为 工厂类，它拥有必要的逻辑判断能力和所有产品的创建权利。
+		但也有局限：我们每次想要增加一种新产品的时候，都必须修改SimpleFactory的原代码，且拥有很多产品时，逻辑判断等，代码量激增。后期维护恐怖；
+					只有SimpleFactory出问题，系统就不能进入工作状态
+					
+	
+	2、工厂方法模式：
+		
+		工厂模式的核心是 抽象工厂类
+		
+		工厂方法模式组成：
+			抽象产品角色：
+							public interface Fruit {}
+			
+			具体产品角色：
+							public class Apple implements Fruit {
+								public Apple(){
+									System.out.println("生产苹果"); 
+								}
+							  }
+							  
+							  public class Orange implements Fruit {
+								public Apple(){
+									System.out.println("生产橘子"); 
+								}
+							  }
+			
+			抽象工厂角色（用多态来弱化原工厂类的职能）：
+							public interface Factory{ public Fruit createFruit(); }
+			
+			具体工厂角色：
+							//创建苹果的工厂
+							public class createApple implements Factory{
+								public Fruit createFruit(){
+									return new Apple();
+								}
+							}
+							
+							//创建橘子的工厂
+							public class createOrange implements Factory{
+								public Fruit createFruit(){
+									return new Orange();
+								}
+							}
+							
+		工厂方法和简单工厂的主要区别：简单工厂是把创建产品的职能都放在一个类里面，而工厂方法则把不同的产品放在实现了工厂接口的不同工厂类里面。这样，就算其中一个工厂类出了问题，其他工厂类也能正常工作，互相不受影响，以后增加新产品，也只需要新增一个实现工厂接口工厂类即可。
+		
+		弊端：工厂类爆炸
+			
+	3、抽象工厂：
+	
+			抽象工厂模式中的抽象产品为多个，就会形成一个多个产品族。如果只有一个产品的情况，实际上抽象工厂模式即为工厂模式

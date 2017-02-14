@@ -1,0 +1,27 @@
+
+1、session和cookie的区别
+
+		机制的区别：cookie采用客户端保持状态，session是服务器端保持状态
+		
+2、get和post区别
+
+	
+		get和post是HTTP协议中两种发送请求的方法，HTTP：基于TCP/IP的关于数据如何在万维网中如何通信的协议。
+		
+		所以，HTTP底层为TCP/IP，get和post底层也是TCP/IP，即均为TCP链接。
+		
+		这样就是说 get和post可以做的事情相同!!!  所以给get加上request body，给POST加上url参数，技术上完全可以!!
+		
+		之所以会有get和post的参数大小限制，传输方式不同等 是因为：
+		
+			底层都采用TCP运输数据，可靠。但运输时没有区别，可能导致的不好情况即 紧急需要传输的数据被别的传输数据占了。
+			
+			这时，所谓的规则 HTTP协议诞生了，HTTP规定执行GET请求时，要贴上GET的标签（设置method为GET），且要把传输的数据放在url中
+			
+			执行POST请求时，就要贴上POST标签，并把数据放在BODY中。
+			
+			
+		get和post具体区别是：GET产生一个TCP数据包；POST产生两个TCP数据包。
+		
+			对于GET方式的请求，浏览器会把http header和data一并发送出去，服务器响应200（返回数据）；
+			而对于POST，浏览器先发送header，服务器响应100 continue，浏览器再发送data，服务器响应200 ok（返回数据）。

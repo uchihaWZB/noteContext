@@ -1,0 +1,48 @@
+
+JDBC Java数据库连接	提供与 平台无关，用于执行SQL的Java API
+
+JDBC驱动分类：
+
+	JDBC-ODBC桥驱动，开放数据库连接，微软提供，SUN模仿。操作性能低；
+	
+	JDBC本地驱动：应用特定数据库，程序丧失移植性，操作性能高；
+	
+	JDBC网络驱动：可将纯Java客户机连接到多种不同的数据库上，灵活；
+	
+	本地协议纯JDBC驱动
+	
+JDBC核心：提供Java API，连接数据库、执行SQL语句、检索结果集、访问数据库元数据
+
+主要接口介绍：
+
+	DriverManager：　　管理JDBC驱动程序；
+	
+	Connection：   　　和特定数据库建立连接，一个连接就是一个会话；
+	
+	Statement：		　　一个Statement对象执行一条静态SQL语句，并获得产生结果；
+	
+	PreparedStatement：一个可编译SQL语句的对象，可多次运行，效率高。Statement子接口；
+	
+	ResultSet：			SQL语句检索的结果集；
+	
+	DatabaseMetaData：  访问数据库的元信息；
+	
+	…………
+	
+	
+数据库操作：
+
+	Statement：
+	
+			更新操作：int executeUpdate() 		执行SQL更新语句，返回更新的记录数
+			
+			查询操作：ResultSet executeQuery()  执行SQL查询操作，返回一个ResultSet结果集
+			
+			批量执行：void addBatch(String sql)	增加一个待执行的SQL语句
+					  int[] executeBatch()		批量执行SQL
+					  
+		    简单执行：boolean execute()
+			
+	PreparedStatement: 预处理操作（需要多次执行SQL，提高效率）
+	
+			

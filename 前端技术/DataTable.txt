@@ -1,0 +1,129 @@
+基本的HTML代码
+
+<table id="table_id" class="display">
+    <thead>
+        <tr>
+            <th>Column 1</th>
+            <th>Column 2</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Row 1 Data 1</td>
+            <td>Row 1 Data 2</td>
+        </tr>
+        <tr>
+            <td>Row 2 Data 1</td>
+            <td>Row 2 Data 2</td>
+        </tr>
+    </tbody>										注意！ <tbody>是必须的！
+</table>
+
+必要引入的文件
+	<!-- DataTables CSS -->
+	<link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.7/css/jquery.dataTables.css">
+	 
+	<!-- jQuery -->
+	<script type="text/javascript" charset="utf8" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	 
+	<!-- DataTables -->
+	<script type="text/javascript" charset="utf8" src="http://cdn.datatables.net/1.10.7/js/jquery.dataTables.js"></script>
+
+	
+DataTable中的数据（Data）
+
+	datatable中有很多的选项可用于配置如何获得表中的数据显示,以及如何处理这些数据
+	
+	处理模式：
+	
+		datatables中有两种不同的方式处理数据(排序、搜索等)
+		
+			客户端处理：所有的数据集预先加载和数据处理都是在浏览器中完成的
+			服务器端处理：数据处理是在服务器上执行								！请注意,两种处理模式不能同时使用,但是可以动态更改从一个模式到另一个
+			
+			
+	数据类型：
+	
+		Datatables使用的数据源必须是一个数组，数组里的每一项将显示在你定义的行上面，以下是三种数据源：
+		
+			数组(Arrays [])
+			对象(objects {})
+			实例(new myclass())			datatables可以用colums.data 或者colums.render选项来显示数据，默认操作模式是数组，对象和实例能直观地处理更复杂的数据
+			
+			
+			数组：
+			
+				var data = [
+					[
+						"Tiger Nixon",
+						"System Architect",
+						"Edinburgh",
+						"5421",
+						"2011/04/25",
+						"$3,120"
+					],
+					[
+						"Garrett Winters",
+						"Director",
+						"Edinburgh",
+						"8422",
+						"2011/07/25",
+						"$5,300"
+					]
+				]
+				$('#example').DataTable( {
+					data: data
+				} );
+				
+			对象：对象看起来很直观，使用对象前，你需要明确告诉datatables那个属性对应那一列， 通过使用columns.data 或者 columns.render 选项完成
+			
+				[
+					{
+						"name":       "Tiger Nixon",
+						"position":   "System Architect",
+						"salary":     "$3,120",
+						"start_date": "2011/04/25",
+						"office":     "Edinburgh",
+						"extn":       "5421"
+					},
+					{
+						"name":       "Garrett Winters",
+						"position":   "Director",
+						"salary":     "$5,300",
+						"start_date": "2011/07/25",
+						"office":     "Edinburgh",
+						"extn":       "8422"
+					}
+				]
+				$('#example').DataTable( {
+					data: data,
+					columns: [
+						{ data: 'name' },
+						{ data: 'position' },
+						{ data: 'salary' },
+						{ data: 'office' }
+					]
+				} );
+				
+			实例：（略过...）
+			
+	Data sources：
+	
+		datatables支持三种数据源显示：
+		
+			dom
+			javascript
+			ajax
+			
+			
+			dom：即 <td></td>间的，如果存在即作为表显示的数据（注意，如果你这时使用data或者ajax传递数据将不会显示）；
+			
+			HTML5：datatables中还可以利用HTML5 data- *属性，可以提供datatables中排序和搜索数据的附加信息；
+			
+			Javascript：你可以指定datatables使用哪一种数据作为初始化，这些数据可以是数组，对象或者实例(见上)，只要javascript可以访问到数据就可以交给datatables显示。
+			
+			Ajax：ajax和javascript数据很类似，你只需要指定要加载的数据的url即可
+							
+			
+			
+

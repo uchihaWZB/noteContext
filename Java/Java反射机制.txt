@@ -1,0 +1,51 @@
+
+Java反射机制：在程序运行状态中，对于任意一个类，可以知道该类的所有属性、方法；对于任意一个对象，都能调用它的任意方法。
+
+	功能：	运行时判断任意一个对象所属类；
+	
+			运行时构造任意一个类的对象；
+			
+			运行时判断任意一个类的 成员变量和方法；
+			
+			运行时调用任意一个对象方法；
+			
+			生成动态代理。
+			
+	优点：
+			实现动态编译和创建对象，通过反射机制获取类的结构、内容，进行反编译
+			
+			
+java.lang.Class; //类               
+java.lang.reflect.Constructor;//构造方法 
+java.lang.reflect.Field; //类的成员变量       
+java.lang.reflect.Method;//类的方法
+java.lang.reflect.Modifier;//访问权限
+
+
+理解反射机制：
+
+	正常情况下：一个类---->通过new实例化--->得到对象
+	
+	反射机制：	一个对象--->反射机制--->得到类
+	
+反射--获取类(Person)：
+
+	1、Person person = new Person();	Class1 = person.getClass();
+	
+	2、Class2 = Person.class;
+	
+	3、Class3 = Class.forName("Person");	//推荐
+	
+	1、2、方法均需导入一个明确类，3、只传入字符串即可
+	
+反射--创建对象
+
+	Class<?> class = Class.forName("Person");	Person = class.newInstance();	//原类中 一定要有一个无参构造函数，否则需要指定调用构造方法
+	
+反射--获取构造方法
+
+	Class<?> class = Class.forName("Person");
+	
+	Constructor<?> con[] = class.getConstructors();		//得到类中全部构造方法
+	
+	Person person = (Person) con[0].newInstance("wang", 10);	//假设只有一个构造方法，有两个参数
