@@ -1,0 +1,3 @@
+
+
+	Tomcat是一个免费开源的Servlet容器，可做web服务器：接收HTTP请求，返回页面；可作为JSP和Servlet的容器

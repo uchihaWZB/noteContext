@@ -1,0 +1,24 @@
+
+	Servlet生命周期
+	
+		装载Servlet--->创建实例--->调用init--->调用服务service 业务逻辑--->销毁
+
+	web.xml里的参数										获取方法
+	
+		全局初始化参数
+		<context-param>
+			<param-name>参数名</param-name>					ServletContext sctx = getServletContext();//创建ServletContext对象
+			<param-value>参数值</param-value>				String 参数值 = sctx.getInitParameter(String 参数名);
+		</context-param>
+		
+	ServletContext,是一个全局的储存信息的空间，服务器开始，其就存在，服务器关闭，其才释放。
+	
+		request，一个用户可有多个；
+		session，一个用户一个；
+		servletContext，所有用户共用一个。
+		
+		
+	
+			
+			
+		

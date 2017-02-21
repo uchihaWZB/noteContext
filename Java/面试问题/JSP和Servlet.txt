@@ -25,3 +25,104 @@
 		
 			对于GET方式的请求，浏览器会把http header和data一并发送出去，服务器响应200（返回数据）；
 			而对于POST，浏览器先发送header，服务器响应100 continue，浏览器再发送data，服务器响应200 ok（返回数据）。
+			
+			
+3、请求转发和重定向的区别
+	
+		请求转发 request.getRequestDispacther("...").forword(request,response);
+		
+			客户请求--->匹配Servlet--->执行Servlet--->调getRequestDispacther()--->到指定位置(jsp页面)
+		
+			整个流程在服务器端，同一个请求，Servlet和jsp共享同一个Request。整个过程 一个请求，一个响应
+			
+		重定向	response.sendRedirect("...");
+		
+			客户请求--->匹配Servlet--->执行Servlet--->调sendRedirect--->客户再次请求--->指定位置(jsp页面)
+			
+			前面和请求转发同，不同之处在于：sendRedirect()这个方法为Response的方法，它会先给客户返回这个响应，让客户再发个请求去跳转到指定位置
+			整个过程 两个请求，两个响应。
+			
+4、过滤器
+
+	Servlet 过滤器可以动态地拦截请求和响应
+	
+		在客户端的请求访问后端资源之前，拦截这些请求。
+		在服务器的响应发送回客户端之前，处理这些响应。
+		
+	常用于：session管理；权限验证；日志记录；字符编码转换
+	
+	方法：
+			init()  Init 方法在 Filter 生命周期中仅执行一次，web 容器在调用 init 方法时
+			
+			destory()  在Web容器卸载 Filter 对象之前被调用。该方法在Filter的生命周期中仅执行一次。在这个方法中，可以释放过滤器使用的资源
+			
+			doFilter() Filter 链的执行 
+			
+	在web.xml里的配置
+	
+		<!-- 编码过滤器 -->  
+			<filter>  
+				<filter-name>setCharacterEncoding</filter-name>  
+				<filter-class>com.company.strutstudy.web.servletstudy.filter.EncodingFilter</filter-class>  
+				<init-param>  
+					<param-name>encoding</param-name>  
+					<param-value>utf-8</param-value>  
+				</init-param>  
+			</filter>  
+			<filter-mapping>  
+				<filter-name>setCharacterEncoding</filter-name>  
+				<url-pattern>/*</url-pattern>  
+			</filter-mapping>  
+	
+	编码拦截器
+	
+		public class EncodingFilter implements Filter {  
+			private String encoding;  
+			private Map<String, String> params = new HashMap<String, String>();  
+			
+			// 项目启动时就已经进行读取  
+			public void init(FilterConfig config) throws ServletException {  
+				System.out.println("begin do the encoding filter!");  
+				encoding = config.getInitParameter("encoding");  
+				for (Enumeration e = config.getInitParameterNames(); e  
+						.hasMoreElements();) {  
+					String name = (String) e.nextElement();  
+					String value = config.getInitParameter(name);  
+					params.put(name, value);  
+				}  
+			}  
+			
+			public void doFilter(ServletRequest req, ServletResponse resp,  
+					FilterChain chain) throws IOException, ServletException {  
+				//UtilTimerStack.push("EncodingFilter_doFilter:");  
+				System.out.println("before encoding " + encoding + " filter！");  
+				req.setCharacterEncoding(encoding);  
+				// resp.setCharacterEncoding(encoding);  
+				// resp.setContentType("text/html;charset="+encoding);  
+				chain.doFilter(req, resp);        
+				System.out.println("after encoding " + encoding + " filter！");  
+				System.err.println("----------------------------------------");  
+				//UtilTimerStack.pop("EncodingFilter_doFilter:");  
+			}  
+			
+			// 项目结束时就已经进行销毁  
+			public void destroy() {  
+				System.out.println("end do the encoding filter!");  
+				params=null;  
+				encoding=null;  
+			}  
+		 }  
+		 
+5、Servlet监听器
+	
+	监听对象：
+
+		1、ServletContext（Servlet上下文）：application，整个应用只存在一个。使用接口：ServletContextListener ,ServletContextAttributeListener
+
+		2、HttpSession：session，针对每一个对话
+
+		3、ServletRequest：request，针对每一个客户请求
+		
+	监听内容：创建、销毁、属性改变事件
+	
+	监听作用：可以在事件发生前、发生后进行一些处理，一般可以用来统计在线人数和在线用户、统计网站访问量、系统启动时初始化信息等。

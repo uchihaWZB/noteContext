@@ -40,7 +40,7 @@ java.lang.reflect.Modifier;//访问权限
 	
 反射--创建对象
 
-	Class<?> class = Class.forName("Person");	Person = class.newInstance();	//原类中 一定要有一个无参构造函数，否则需要指定调用构造方法
+	Class<?> class = Class.forName("Person");	Person person = class.newInstance();	//原类中 一定要有一个无参构造函数，否则需要指定调用构造方法
 	
 反射--获取构造方法
 
