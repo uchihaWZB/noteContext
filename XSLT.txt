@@ -1,0 +1,13 @@
+
+
+XSL 扩展样式语言表
+
+XSLT指XSL转换，即使用XSLT将XML文档转换为其他文档，如XHTML
+
+XSL：
+
+	--XSLT		用于转换 XML 文档的语言
+	
+	--XPath		用于在 XML 文档中导航的语言
+	
+	--XSL-FO	用于格式化 XML 文档的语言
