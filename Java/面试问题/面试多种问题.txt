@@ -44,3 +44,31 @@ JVM加载class文件的原理机制---
 	抽象类中可以有具体方法，接口只能都是抽象方法；
 	抽象成员可以各种类型，接口只可public；
 	
+字符串反转---
+
+	//递归二分截取左右互换
+	String reverse(String str) {
+		int length = str.length();
+		if(length < 1) {
+			return str;
+		}
+		String leftStr = str.substring(0, length / 2);
+		String rightStr = str.substring(length / 2, length);
+		
+		return reverse(rightStr) + reverse(leftStr);
+	}
+	
+	//类似于栈，从头开始每次往里压字母
+    public static String reverse2(String s) {
+        int length = s.length();
+        String reverse = "";
+        for (int i = 0; i < length; i++)
+            reverse = s.charAt(i) + reverse;
+        return reverse;
+    }
+	
+集合---
+
+	1、ArrayList是线程不安全的；
+	2、Vector是比较古老的线程安全的，但性能不行；
+	3、CopyOnWriteArrayList在兼顾了线程安全的同时，又提高了并发性，性能比Vector有不少提高

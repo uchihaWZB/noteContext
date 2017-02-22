@@ -1,0 +1,19 @@
+1、集合类对象
+
+	ie可以用()和[]获取，ff只能用[]
+	
+2、自定义属性
+
+	ff只能用getAttribute()
+	
+3、通过eval("idName")获取id为idName的HTML对象
+
+	ie：eval()和getElementById("idName")皆可，ff只能getElementById("idName")
+	
+4、const问题 
+
+	ff可以使用const和var定义常量，ie只能var
+	
+5、window.event问题
+
+	window.event只能在IE下运行,而不能在Firefox下运行,这是因为Firefox的event只能在事件发生的现场使用.
