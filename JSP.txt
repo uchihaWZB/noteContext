@@ -1,0 +1,13 @@
+
+
+
+
+JSP包含外部文件方式：
+
+	<jsp:include page="somefile" flush="true"/>	动态包含，
+	
+	<%@ include file ="somefile"%>
+
+
+errorPage：设置当前页面要引入错误页面，当前页面出现错误即跳转至错误页面
+isErrorPage：标明当前页面为错误页面Jsp中包含外部文件的方式
